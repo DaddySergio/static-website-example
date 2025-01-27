@@ -1,7 +1,7 @@
 name: Node.js CI
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,3 +58,4 @@ jobs:
             sudo systemctl start nginx
             sudo cp -r dist/* /var/www/html
             sudo systemctl restart nginx
+#igbagaye            
