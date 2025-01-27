@@ -1,0 +1,24 @@
+name: Node.js CI
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Nginx and Copy code to /var/www/html
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            sudo apt update && sudo apt upgrade -y
+            echo "Successful Cache Update"
+            sudo apt install nginx -y
+            echo "Successful Nginx Installation"
+            git clone https://github.com/DaddySergio/static-website-example.git
+            sudo systemctl start nginx
+            sudo cp -r Static-Site/* /var/www/html
+            sudo systemctl restart nginx
